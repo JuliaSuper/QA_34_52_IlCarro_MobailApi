@@ -2,7 +2,6 @@ package utils;
 
 import dto.Car;
 import net.datafaker.Faker;
-import utils.enums.Fuel;
 
 import java.time.LocalDate;
 
@@ -17,7 +16,7 @@ public class CarFactory {
                 .model(faker.vehicle().model())
                 .year(Integer.toString(faker.number().numberBetween(0, LocalDate.now()
                         .getYear())))
-                .fuel(faker.options().option(Fuel.values()))
+                .fuel("Diesel")
                 .seats(faker.number().numberBetween(2, 20))
                 .carClass(faker.vehicle().carType())
                 .pricePerDay(faker.number()
@@ -35,7 +34,7 @@ public class CarFactory {
                 .manufacture(faker.vehicle().manufacturer())
                 .model(faker.vehicle().model())
                 .year(Integer.toString(futureYear))
-                .fuel(faker.options().option(Fuel.values()))
+                .fuel("Diesel")
                 .seats(faker.number().numberBetween(2, 20))
                 .carClass(faker.vehicle().carType())
                 .pricePerDay(faker.number().randomDouble(2, 0, 1000))
@@ -52,7 +51,7 @@ public class CarFactory {
                 .manufacture(faker.vehicle().manufacturer())
                 .model(faker.vehicle().model())
                 .year(Integer.toString(negativeYear))
-                .fuel(faker.options().option(Fuel.values()))
+                .fuel("Diesel")
                 .seats(faker.number().numberBetween(2, 20))
                 .carClass(faker.vehicle().carType())
                 .pricePerDay(faker.number().randomDouble(2, 0, 1000))

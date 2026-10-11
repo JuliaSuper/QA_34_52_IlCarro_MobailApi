@@ -10,8 +10,7 @@ public class UserFactory {
                 .firstName(faker.name().firstName())
                 .lastName(faker.name().lastName())
                 .username(faker.internet().emailAddress())
-                .password(PropertiesReader.getProperty("base.properties",
-                        "password_for_registration"))
+                .password("Svetlana23!!")
                 .build();
         return user;
     }

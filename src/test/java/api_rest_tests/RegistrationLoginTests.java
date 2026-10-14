@@ -39,7 +39,7 @@ public class RegistrationLoginTests extends AuthenticationController {
     @Test
     public void registrationWithInvalidEmailNegativeTest() {
         User user = positiveUser();
-        user.setUsername("juliyur-2023-gmail-com");
+        user.setUsername("juliyur.2023gmail.com");
         Assert.assertEquals(registrationLogin
                 (user, REGISTRATION_URL).getStatusCode(), 400);
     }
@@ -57,7 +57,7 @@ public class RegistrationLoginTests extends AuthenticationController {
     @Test
     public void registrationWithWeakPasswordNegativeTest() {
         User user = positiveUser();
-        user.setPassword("123");
+        user.setPassword("1234DFjk");
         Assert.assertEquals(registrationLogin
                 (user, REGISTRATION_URL).getStatusCode(), 400);
     }

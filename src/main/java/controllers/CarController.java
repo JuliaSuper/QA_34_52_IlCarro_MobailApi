@@ -1,6 +1,7 @@
 package controllers;
 
 import dto.Car;
+import dto.SearchCarDto;
 import dto.TokenDto;
 import dto.User;
 import io.restassured.http.ContentType;
@@ -42,4 +43,37 @@ public class CarController implements BaseApi {
                 .thenReturn();
     }
 
+    public Response bookCar(String serialNumber, Object requestBody) {
+        return given()
+                .header(AUTH, tokenDto.getAccessToken())
+                .contentType(ContentType.JSON)
+                .pathParam("serialNumber", serialNumber)
+                .body(requestBody)
+                .when()
+                .post(BASE_URL + BOOKING_CAR_URL)
+                .thenReturn();
+    }
+    public Response searchCar(SearchCarDto searchCarDto) {
+        return given()
+                .contentType(ContentType.JSON)
+                .body(searchCarDto)
+                .when()
+                .post(BASE_URL + SEARCH_CAR_URL)
+                .thenReturn();
+    }
+    public Response getUserCars(){
+        return given()
+                .header(AUTH, tokenDto.getAccessToken())
+                .when()
+                .get(BASE_URL+GET_CAR_URL)
+                .thenReturn();
+    }
+
+    public Response deleteUserCars(String serialNumber){
+        return given()
+                .header(AUTH, tokenDto.getAccessToken())
+                .when()
+                .delete(BASE_URL+DELETE_CAR_URL+ serialNumber)
+                .thenReturn();
+    }
 }

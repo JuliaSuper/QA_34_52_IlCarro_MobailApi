@@ -13,13 +13,13 @@ import utils.SearchCarFactory;
 
 public class CarsTests extends CarController {
     @Test
-    public void addNewCarPositiveTest(){
+    public void addNewCarPositiveTest() {
         Car car = CarFactory.posittiveCar();
-        Assert.assertEquals(addNewCar(car).getStatusCode(),200);
+        Assert.assertEquals(addNewCar(car).getStatusCode(), 200);
     }
 
     @Test
-    public void bookingCarPositiveTest(){
+    public void bookingCarPositiveTest() {
         Car car = CarFactory.posittiveCar();
         addNewCar(car);
         String serialNumber = car.getSerialNumber();
@@ -37,16 +37,15 @@ public class CarsTests extends CarController {
     }
 
     @Test
-    public void getUserCarsPositiveTest(){
-        Car car = CarFactory.posittiveCar();
-        Assert.assertEquals(getUserCars().getStatusCode(),200);
+    public void getUserCarsPositiveTest() {
+       Assert.assertEquals(getUserCars().getStatusCode(), 200);
     }
 
     @Test
-    public void deleteUserCarsPositiveTest(){
+    public void deleteUserCarsPositiveTest() {
         Car car = CarFactory.posittiveCar();
         addNewCar(car);
         String serialNumber = car.getSerialNumber();
-        Assert.assertEquals(deleteUserCars(serialNumber).getStatusCode(),200);
+        Assert.assertEquals(deleteUserCars(serialNumber).getStatusCode(), 200);
     }
 }

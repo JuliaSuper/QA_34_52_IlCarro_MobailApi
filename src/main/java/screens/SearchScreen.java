@@ -1,5 +1,6 @@
 package screens;
 
+import dto.User;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.WebElement;
@@ -19,16 +20,16 @@ public class SearchScreen extends BaseScreen{
     WebElement btnRegistration;
 
     @AndroidFindBy(xpath = "//android.widget.EditText[@resource-id='com.telran.ilcarro:id/editRegName']")
-    WebElement intelName;
+    WebElement inputName;
 
     @AndroidFindBy(xpath = "//android.widget.EditText[@resource-id='com.telran.ilcarro:id/editRegLastName']")
-    WebElement intelLastName;
+    WebElement inputLastName;
 
     @AndroidFindBy(xpath = "//android.widget.EditText[@resource-id='com.telran.ilcarro:id/editRegEmail']")
-    WebElement intelEmail;
+    WebElement inputEmail;
 
     @AndroidFindBy(xpath = "//android.widget.EditText[@resource-id='com.telran.ilcarro:id/editRegPassword']")
-    WebElement intelPassword;
+    WebElement inputPassword;
 
     @AndroidFindBy(xpath = "//android.widget.CheckBox[@resource-id='com.telran.ilcarro:id/checkBoxAgree']")
     WebElement btnCheckBox;
@@ -40,12 +41,22 @@ public class SearchScreen extends BaseScreen{
         clickWait(btnDots);
     }
     public void clickBtnLogin(){
-
         clickWait(btnLogin);
     }
     public void clickBtnRegistration(){
         clickWait(btnRegistration);
     }
-
+    public void typeFormRegistration(User user){
+        inputName.sendKeys(user.getFirstName());
+        inputLastName.sendKeys(user.getLastName());
+        inputEmail.sendKeys(user.getUsername());
+        inputPassword.sendKeys(user.getPassword());
+    }
+    public void clickBtnCheckBox(){
+        clickWait(btnCheckBox);
+    }
+public void clickBtnYalla(){
+        clickWait(btnYalla);
+}
 
 }

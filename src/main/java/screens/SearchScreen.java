@@ -37,6 +37,9 @@ public class SearchScreen extends BaseScreen{
     @AndroidFindBy(xpath = "//android.widget.Button[@resource-id='com.telran.ilcarro:id/regBtn']")
     WebElement btnYalla;
 
+    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.telran.ilcarro:id/findTitle']")
+    WebElement textCarNow;
+
     public void clickBtnDots(){
         clickWait(btnDots);
     }
@@ -58,5 +61,7 @@ public class SearchScreen extends BaseScreen{
 public void clickBtnYalla(){
         clickWait(btnYalla);
 }
-
+    public String isFindTitleText(){
+        return textCarNow.getText();
+    }
 }

@@ -1,6 +1,7 @@
 package mobile_tests;
 
 import dto.User;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import screens.SearchScreen;
 import screens.SplashScreen;
@@ -15,14 +16,16 @@ public class RegistrationTests extends TestBase{
         searchScreen.clickBtnDots();
         searchScreen.clickBtnRegistration();
         User user = User.builder()
-                .firstName("Georgiy")
-                .lastName("Savelev")
-                .username(PropertiesReader.getProperty("base.properties", "emailTest"))
-                .password(PropertiesReader.getProperty("base.properties","passwordRegistrationUser"))
+                .firstName("George")
+                .lastName("Eruel")
+                .username(PropertiesReader.getProperty("base.properties", "email1"))
+                .password(PropertiesReader.getProperty("base.properties",
+                        "passwordUser"))
                         .build();
         searchScreen.typeFormRegistration(user);
         searchScreen.clickBtnCheckBox();
         searchScreen.clickBtnYalla();
+        Assert.assertEquals(searchScreen.isFindTitleText(),"Find your car now!");
 
     }
 }

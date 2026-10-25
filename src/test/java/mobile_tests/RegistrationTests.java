@@ -2,30 +2,48 @@ package mobile_tests;
 
 import dto.User;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import screens.ErrorScreen;
+import screens.RegistrationScreen;
 import screens.SearchScreen;
 import screens.SplashScreen;
-import utils.PropertiesReader;
+import utils.UserFactory;
 
-public class RegistrationTests extends TestBase{
+public class RegistrationTests extends TestBase {
+    SearchScreen searchScreen;
+    RegistrationScreen registrationScreen;
+    User user;
 
-    @Test
-    public void registrationPositiveTest(){
+    @BeforeMethod
+    public void goToRegistrationScreen() {
         new SplashScreen(driver).goToSearchScreen();
-        SearchScreen searchScreen = new SearchScreen(driver);
+        searchScreen = new SearchScreen(driver);
         searchScreen.clickBtnDots();
         searchScreen.clickBtnRegistration();
-        User user = User.builder()
-                .firstName("George")
-                .lastName("Eruel")
-                .username(PropertiesReader.getProperty("base.properties", "email1"))
-                .password(PropertiesReader.getProperty("base.properties",
-                        "passwordUser"))
-                        .build();
-        searchScreen.typeFormRegistration(user);
-        searchScreen.clickBtnCheckBox();
-        searchScreen.clickBtnYalla();
-        Assert.assertEquals(searchScreen.isFindTitleText(),"Find your car now!");
+        registrationScreen = new RegistrationScreen(driver);
+        user = UserFactory.positiveUser();
+    }
+
+    @Test
+    public void registrationPositiveTest() {
+        registrationScreen.typeFormRegistration(user);
+        registrationScreen.clickBtnCheckBox();
+        registrationScreen.clickBtnYalla();
+        Assert.assertTrue(searchScreen.
+                validatePopUpRegistrationSuccess("Registration success!"));
 
     }
+
+    @Test
+    public void registrationEmptyFieldNegativeTest() {
+         user.setFirstName("");
+        registrationScreen.typeFormRegistration(user);
+        registrationScreen.clickBtnCheckBox();
+        registrationScreen.clickBtnYalla();
+       Assert.assertTrue(new ErrorScreen(driver).
+               validateErrorMessage("All fields must be filled and agree terms"));
+    }
+
+
 }

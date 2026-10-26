@@ -45,5 +45,26 @@ public class RegistrationTests extends TestBase {
                validateErrorMessage("All fields must be filled and agree terms"));
     }
 
+    @Test
+    public void registrationShortPasswordNegativeTest() {
+        user.setPassword("InWal2!");
+        registrationScreen.typeFormRegistration(user);
+        registrationScreen.clickBtnCheckBox();
+        registrationScreen.clickBtnYalla();
+        Assert.assertTrue(new ErrorScreen(driver).
+                validateErrorPassword("{password= At least 8 characters; " +
+                        "Must contain at least 1 uppercase letter, 1 lowercase letter," +
+                        " and 1 number; " +
+                        "Can contain special characters [@$#^&*!]}"));
+    }
 
+    @Test
+    public void registrationInvalidEmailNegativeTest() {
+        user.setUsername("georgiy2023gmail.com");
+        registrationScreen.typeFormRegistration(user);
+        registrationScreen.clickBtnCheckBox();
+        registrationScreen.clickBtnYalla();
+        Assert.assertTrue(new ErrorScreen(driver).
+                validateErrorEmail("{username=must be a well-formed email address}"));
+    }
 }

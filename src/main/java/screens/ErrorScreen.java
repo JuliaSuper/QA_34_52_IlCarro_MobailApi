@@ -12,8 +12,25 @@ public class ErrorScreen extends BaseScreen{
 @AndroidFindBy(xpath = "//*[@resource-id='android:id/message']")
     WebElement errorMessage;
 
+    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/message']")
+    WebElement errorPassword;
+
+    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/message']")
+    WebElement errorEmail;
+
+//    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='android:id/message']")
+//    WebElement
+
     public boolean validateErrorMessage(String text){
         return isTextInElementPresent(errorMessage, text);
+    }
+
+    public boolean validateErrorPassword(String text){
+        return isTextInElementPresent(errorPassword, text);
+    }
+
+    public boolean validateErrorEmail(String text){
+        return isTextInElementPresent(errorEmail, text);
     }
 
 }

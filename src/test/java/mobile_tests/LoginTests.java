@@ -4,6 +4,7 @@ import dto.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import screens.ErrorScreen;
 import screens.LoginScreen;
 import screens.SearchScreen;
 import screens.SplashScreen;
@@ -32,6 +33,24 @@ public class LoginTests extends TestBase{
         loginScreen.typeFormLogin(user);
         loginScreen.clickBtnLogin();
         Assert.assertTrue(searchScreen.validatePopUpLoginSuccess("Login success!"));
+    }
+
+    @Test
+    public void LoginInvalidEmailNegativeTest(){
+        user.setUsername("georgiy2025@gmailcom");
+        loginScreen.typeFormLogin(user);
+        loginScreen.clickBtnLogin();
+        Assert.assertTrue(new ErrorScreen(driver).
+                validateErrorEmail("Login or Password incorrect"));
+    }
+
+    @Test
+    public void LoginPasswordNotSymbolNegativeTest(){
+        user.setPassword("InWalidPass22");
+        loginScreen.typeFormLogin(user);
+        loginScreen.clickBtnLogin();
+        Assert.assertTrue(new ErrorScreen(driver).
+                validateErrorPassword("Login or Password incorrect"));
     }
 
 }

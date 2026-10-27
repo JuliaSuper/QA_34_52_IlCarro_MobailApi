@@ -2,6 +2,7 @@ package mobile_tests;
 
 import dto.Car;
 import dto.User;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import screens.*;
@@ -35,7 +36,11 @@ public class AddNewCarTests extends TestBase {
 
     @Test
     public void addNewCarPositiveTest() {
-addNewCarScreen.typeAddNewCarForm(car);
-addNewCarScreen.clickBtnAddCar();
+        addNewCarScreen.typeAddNewCarForm(car);
+        addNewCarScreen.typeFuel(car.getFuel());
+        addNewCarScreen.clickBtnAddCar();
+        Assert.assertTrue(new MyCarsScreen(driver).
+                validateWidgetAddCar("Car was added!"));
+
     }
 }

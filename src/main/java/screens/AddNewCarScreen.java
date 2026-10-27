@@ -18,7 +18,7 @@ public class AddNewCarScreen extends BaseScreen {
     @AndroidFindBy(id = "com.telran.ilcarro:id/editSerial")
     WebElement inputSerialNumber;
     @AndroidFindBy(id = "com.telran.ilcarro:id/editMan")
-    WebElement inputManufactyre;
+    WebElement inputManufacture;
     @AndroidFindBy(id = "com.telran.ilcarro:id/editModel")
     WebElement inputModel;
     @AndroidFindBy(id = "com.telran.ilcarro:id/editCity")
@@ -40,12 +40,12 @@ public class AddNewCarScreen extends BaseScreen {
 
     public void typeAddNewCarForm(Car car) {
 inputSerialNumber.sendKeys(car.getSerialNumber());
-inputManufactyre.sendKeys(car.getManufacture());
+inputManufacture.sendKeys(car.getManufacture());
 inputModel.sendKeys(car.getModel());
 inputCity.sendKeys(car.getCity());
 inputPrice.sendKeys(car.getPricePerDay()+"");
 inputCarClass.sendKeys(car.getCarClass());
-inputFuel.sendKeys(car.getFuel());
+typeFuel(car.getFuel());
 inputYear.sendKeys(car.getYear());
 inputSeats.sendKeys(Integer.toString(car.getSeats()));
 inputAbout.sendKeys(car.getAbout());
@@ -58,7 +58,8 @@ inputAbout.sendKeys(car.getAbout());
     public void typeFuel(String fuel){
         inputFuel.click();
         new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='"+fuel+"']")))
+                .until(ExpectedConditions.elementToBeClickable
+                        (By.xpath("//*[@text='"+fuel+"']")))
                 .click();
     }
 }

@@ -1,9 +1,6 @@
 package controllers;
 
-import dto.Car;
-import dto.SearchCarDto;
-import dto.TokenDto;
-import dto.User;
+import dto.*;
 import io.restassured.http.ContentType;
 
 import io.restassured.response.Response;
@@ -18,28 +15,28 @@ public class CarController implements BaseApi {
     public TokenDto tokenDto;
 
     @BeforeClass
-            public void login(){
+    public void login() {
         User user = User.builder()
-            .username(PropertiesReader.getProperty("base.properties", "email"))
-            .password(PropertiesReader.getProperty("base.properties", "password"))
-            .build();
+                .username(PropertiesReader.getProperty("base.properties", "email"))
+                .password(PropertiesReader.getProperty("base.properties", "password"))
+                .build();
         tokenDto = given()
                 .body(user)
                 .contentType(ContentType.JSON)
                 .when()
-                .post(BASE_URL+LOGIN_URL)
+                .post(BASE_URL + LOGIN_URL)
                 .thenReturn()
                 .getBody()
                 .as(TokenDto.class);
     }
 
-    public Response addNewCar(Car car){
+    public Response addNewCar(Car car) {
         return given()
                 .body(car)
                 .contentType(ContentType.JSON)
                 .header(AUTH, tokenDto.getAccessToken())
                 .when()
-                .post(BASE_URL+ADD_CAR_URL)
+                .post(BASE_URL + ADD_CAR_URL)
                 .thenReturn();
     }
 
@@ -53,6 +50,7 @@ public class CarController implements BaseApi {
                 .post(BASE_URL + BOOKING_CAR_URL)
                 .thenReturn();
     }
+
     public Response searchCar(SearchCarDto searchCarDto) {
         return given()
                 .contentType(ContentType.JSON)
@@ -61,11 +59,12 @@ public class CarController implements BaseApi {
                 .post(BASE_URL + SEARCH_CAR_URL)
                 .thenReturn();
     }
-    public Response getUserCars(){
+
+    public Response getUserCars() {
         return given()
                 .header(AUTH, tokenDto.getAccessToken())
                 .when()
-                .get(BASE_URL+GET_CAR_URL)
+                .get(BASE_URL + GET_CAR_URL)
                 .thenReturn();
     }
 
@@ -75,5 +74,18 @@ public class CarController implements BaseApi {
                 .when()
                 .delete(BASE_URL+DELETE_CAR_URL+ serialNumber)
                 .thenReturn();
+    }
+
+    public int getCarsCount() {
+        CarsDto cars = given()
+                .contentType(ContentType.JSON)
+                .header(AUTH, tokenDto.getAccessToken())
+                .when()
+                .get(BASE_URL + GET_CAR_URL)
+                .then()
+                .statusCode(200)
+                .extract().as(CarsDto.class);
+        return cars.getCars().length;
+
     }
 }
